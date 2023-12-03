@@ -6,6 +6,8 @@ fn days() -> Vec<(&'static str, fn())> {
         ("day01b", day01b::main),
         ("day02a", day02a::main),
         ("day02b", day02b::main),
+        ("day03a", day03a::main),
+        ("day03b", day03b::main),
     ]
 }
 
