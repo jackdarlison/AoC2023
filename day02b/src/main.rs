@@ -1,6 +1,6 @@
 use regex::Regex;
 
-fn main() {
+pub fn main() {
     let game_re = Regex::new(r"Game (?<game>[0-9]+): ").unwrap();
     let colour_re = Regex::new(r"(?<num>[0-9]+) (?<col>(?:green|red|blue))").unwrap();
     println!("{}",

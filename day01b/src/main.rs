@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use regex::Regex;
 
-fn main() {
+pub fn main() {
     let re = Regex::new(r"[1-9]|one|two|three|four|five|six|seven|eight|nine").unwrap();
     let map = HashMap::from([
         ("one", "1"),
