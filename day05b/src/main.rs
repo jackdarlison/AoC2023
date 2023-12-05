@@ -16,10 +16,6 @@ pub fn main() {
         seeds.append(&mut (start..(start + range)).collect::<Vec<usize>>());
     }
 
-    println!("Finished seed conversion");
-    let mut index = 0;
-
-
     maps.for_each(|s| {
             let mut lines = s.split("\n");
             lines.next(); 
@@ -37,8 +33,6 @@ pub fn main() {
                     *s
                 }
             }).collect::<Vec<usize>>();
-            println!("{:?}", index);
-            index += 1;
         });
 
     println!("{}", seeds.iter().min().unwrap());
