@@ -1,5 +1,6 @@
 use itertools::Itertools;
 
+use rangemap::RangeMap;
 use regex::Regex;
 
 pub fn main() {
@@ -12,21 +13,20 @@ pub fn main() {
     maps.for_each(|s| {
             let mut lines = s.split("\n");
             lines.next(); 
-            let mut new_seeds: Vec<usize> = vec![];
-            let mut mapped_seeds: Vec<usize> = vec![];
+            let mut map = RangeMap::new();
             lines.for_each(|l| {
                 let (dest, source, range) = num_re.find_iter(l)
                     .map(|m| m.as_str().parse::<usize>().unwrap())
                     .collect_tuple().unwrap();
-                seeds.iter()
-                    .filter(|v| v >= &&source && v < &&(source + range))
-                    .for_each(|v| {
-                        new_seeds.push(dest + (v - source));
-                        mapped_seeds.push(*v);
-                    });
+                map.insert(source..(source + range), (dest, source));
             });
-            new_seeds.append(&mut seeds.iter().filter(|v| !mapped_seeds.contains(v)).map(|v| *v).collect::<Vec<usize>>());
-            seeds = new_seeds;
+            seeds = seeds.iter().map(|s| {
+                if let Some((dest, source)) = map.get(s) {
+                    dest + (s - source) 
+                } else {
+                    *s
+                }
+            }).collect::<Vec<usize>>();
         });
 
     println!("{}", seeds.iter().min().unwrap());
